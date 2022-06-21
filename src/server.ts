@@ -4,7 +4,7 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
 
-import { AppServerModule } from './main.server';
+import { AppServerModule } from 'src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
@@ -37,7 +37,7 @@ export function app(): express.Express {
   return server;
 }
 
-function run(): void {
+function run(): any {
   const port = process.env['PORT'] || 4000;
 
   // Start up the Node server
@@ -57,4 +57,4 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
   run();
 }
 
-export * from './main.server';
+export * from 'src/main.server';
