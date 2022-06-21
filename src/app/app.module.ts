@@ -13,7 +13,7 @@ import { AlertComponent } from './_components';
 
 @NgModule({
     imports: [
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule

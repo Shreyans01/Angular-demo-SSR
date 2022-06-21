@@ -19,12 +19,12 @@ export class AddEditComponent implements OnInit {
         private router: Router,
         private userService: UserService,
         private alertService: AlertService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.id = this.route.snapshot.params['id'];
         this.isAddMode = !this.id;
-        
+
         this.form = this.formBuilder.group({
             name: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
@@ -77,5 +77,9 @@ export class AddEditComponent implements OnInit {
                 this.router.navigate(['/users']);
             })
             .add(() => this.loading = false);
+    }
+
+    cancel() {
+        this.router.navigate(['users'])
     }
 }

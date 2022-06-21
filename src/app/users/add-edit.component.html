@@ -5,7 +5,8 @@
         <div class="form-row">
             <div class="form-group col">
                 <label>Name</label>
-                <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                <input type="text" formControlName="name" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                     <div *ngIf="f.name.errors.required">Name is required</div>
                 </div>
@@ -14,7 +15,8 @@
         <div class="form-row">
             <div class="form-group col-7">
                 <label>Email</label>
-                <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <input type="text" formControlName="email" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                 <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                     <div *ngIf="f.email.errors.required">Email is required</div>
                     <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
@@ -26,6 +28,9 @@
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 Submit
             </button>
+            <button [disabled]="loading" class="btn" (click)="cancel()">
+                Cancel
+            </button>
         </div>
     </form>
-    </div>
+</div>
