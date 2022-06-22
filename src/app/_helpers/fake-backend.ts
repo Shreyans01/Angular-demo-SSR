@@ -6,12 +6,16 @@ import { delay, materialize, dematerialize } from 'rxjs/operators';
 
 // array in local storage for registered users
 const usersKey = 'angular-11-crud-example-users';
-const usersJSON = localStorage.getItem(usersKey);
-let users: any[] = usersJSON ? JSON.parse(usersJSON) : [{
-    id: 1,
-    name: 'Mr',
-    email: 'joe@bloggs.com',
-}];
+var usersJSON;
+let users: any[];
+if (localStorage.getItem(usersKey)) {
+    usersJSON = localStorage.getItem(usersKey);
+    users = usersJSON ? JSON.parse(usersJSON) : [{
+        id: 1,
+        name: 'Mr',
+        email: 'joe@bloggs.com',
+    }];
+}
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -35,7 +39,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
-            }    
+            }
         }
 
         // route functions
@@ -104,7 +108,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function basicDetails(user: any) {
-            const { id, name ,email } = user;
+            const { id, name, email } = user;
             return { id, name, email };
         }
 
