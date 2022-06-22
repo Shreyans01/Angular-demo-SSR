@@ -8,14 +8,7 @@ import { delay, materialize, dematerialize } from 'rxjs/operators';
 const usersKey = 'angular-11-crud-example-users';
 var usersJSON;
 let users: any[];
-if (localStorage.getItem(usersKey)) {
-    usersJSON = localStorage.getItem(usersKey);
-    users = usersJSON ? JSON.parse(usersJSON) : [{
-        id: 1,
-        name: 'Mr',
-        email: 'joe@bloggs.com',
-    }];
-}
+
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -45,15 +38,27 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // route functions
 
         function getUsers() {
+            fetchData();
             return ok(users.map(x => basicDetails(x)));
         }
 
+        function fetchData() {
+            usersJSON = localStorage.getItem(usersKey);
+            users = usersJSON ? JSON.parse(usersJSON) : [{
+                id: 1,
+                name: 'Mr',
+                email: 'joe@bloggs.com',
+            }];
+        }
+
         function getUserById() {
+            fetchData();
             const user = users.find(x => x.id === idFromUrl());
             return ok(basicDetails(user));
         }
 
         function createUser() {
+            fetchData();
             const user = body;
 
             if (users.find(x => x.email === user.email)) {
@@ -70,6 +75,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function updateUser() {
+            fetchData();
             let params = body;
             let user = users.find(x => x.id === idFromUrl());
 
@@ -90,6 +96,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function deleteUser() {
+            fetchData();
             users = users.filter(x => x.id !== idFromUrl());
             localStorage.setItem(usersKey, JSON.stringify(users));
             return ok();
